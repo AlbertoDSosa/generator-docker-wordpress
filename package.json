@@ -1,0 +1,30 @@
+{
+  "name": "generator-docker-wordpress",
+  "version": "0.0.1",
+  "description": "Yeoman generator for Wordpress envirotment with Docker",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "files": [
+    "generators"
+  ],
+  "keywords": [
+    "yeoman",
+    "docker",
+    "generator",
+    "wordpress"
+  ],
+  "author": "Alberto D.Sosa <albertodsosa@gmail.com>",
+  "license": "MIT",
+  "dependencies": {
+    "address": "^1.1.2",
+    "chalk": "^4.1.0",
+    "yeoman-generator": "^4.12.0",
+    "yosay": "^2.0.2"
+  },
+  "devDependencies": {
+    "yeoman-assert": "^3.1.1",
+    "yeoman-test": "^4.0.0"
+  }
+}

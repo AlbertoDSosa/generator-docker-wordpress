@@ -1,0 +1,37 @@
+version: '3.3'
+
+services:
+  wordpress:
+    build: ./docker/build/
+    depends_on:
+      - db
+    ports:
+      - 8000:80
+    volumes:
+      - ./wordpress:/var/www/html
+      - ./docker/config/uploads.ini:/usr/local/etc/php/conf.d/uploads.ini
+    environment:
+      APACHE_RUN_USER: www-data
+      APACHE_RUN_GROUP: www-data
+      XDEBUG_CONFIG: remote_host=0.0.0.0
+  phpmyadmin:
+    depends_on:
+      - db
+    image: phpmyadmin
+    ports:
+      - 8080:80
+    environment:
+      - PMA_ARBITRARY=1
+      - PMA_HOST=db:3306
+      - PMA_USER=root
+      - PMA_PASSWORD=secret
+  db:
+    image: mariadb
+    volumes:
+      - db_data:/var/lib/mysql
+    environment:
+      MYSQL_ROOT_PASSWORD: secret
+      MYSQL_DATABASE: wordpress_db
+      MYSQL_USER: root
+volumes:
+  db_data: {}

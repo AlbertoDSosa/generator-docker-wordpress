@@ -57,6 +57,18 @@ module.exports = class extends (
     this.answers = await this.prompt([
       {
         type: "input",
+        name: "username",
+        message: "Your local username",
+        default: this.username,
+      },
+      {
+        type: "input",
+        name: "remoteHost",
+        message: "Your xdebug remote host",
+        default: this.remoteHost,
+      },
+      {
+        type: "input",
         name: "appDescription",
         message: "Your Wordpress application description",
         default: "Simple local Wordpress development environment",
@@ -104,14 +116,14 @@ module.exports = class extends (
     this.fs.copyTpl(
       this.templatePath("_Dockerfile"),
       this.destinationPath("docker/build/Dockerfile"),
-      { username: this.username }
+      { username: this.answers.username }
     );
     this.fs.copyTpl(
       this.templatePath("_docker-compose.yml"),
       this.destinationPath("docker-compose.yml"),
       {
-        username: this.username,
-        remoteHost: this.remoteHost,
+        username: this.answers.username,
+        remoteHost: this.answers.remoteHost,
         folderName: this.answers.folderName,
         dbName: this.answers.dbName,
         dbPassword: this.answers.dbPassword,
@@ -123,8 +135,8 @@ module.exports = class extends (
       this.templatePath("_README.md"),
       this.destinationPath("README.md"),
       {
-        appname: this.appname,
-        appDescription: this.appDescription,
+        appname: this.options.appname,
+        appDescription: this.answers.appDescription,
         folderName: this.answers.folderName,
         wordpressPort: this.answers.wordpressPort,
         phpMyAdminPort: this.answers.phpMyAdminPort,
